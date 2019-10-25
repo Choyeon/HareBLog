@@ -1,0 +1,13 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.douban.com/simple"
+verify_ssl = true
+skip_lock = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+
+[requires]
+python_version = "3.7"
