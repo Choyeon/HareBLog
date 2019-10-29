@@ -26,7 +26,7 @@ class Link(models.Model):
                                          verbose_name="权重",
                                          help_text="权重高展示顺序靠前")
     # 作者的外键定义 指向'User'模型类 如果原作者被删除 则作者为空
-    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.SET_NULL)
+    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
@@ -57,8 +57,8 @@ class SideBar(models.Model):
     content = models.CharField(max_length=500, verbose_name="展示内容", blank=True, help_text="如果不是HTML类型可为空")
     # 状态
     status = models.PositiveIntegerField(default=STATUS_SHOW, choices=STATUS_ITEMS, verbose_name="状态")
-    # 作者的外键定义 指向'User'模型类 如果原作者被删除 则作者为空
-    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.SET_NULL)
+    # 作者的外键定义 指向'User'模型类
+    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
