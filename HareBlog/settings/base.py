@@ -15,21 +15,20 @@ import os
 # 像这样在项目内部构建路径：os.path.join（BASE_DIR，...）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # 快速启动开发设置-不适合生产
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # 安全警告：请将生产中使用的密钥保密！
 SECRET_KEY = '+-b6jxj9&hpseim9n!4ybot(()hd-7*2e7^8r&j(m!2e1&m!zx'
 
-
-
 ALLOWED_HOSTS = []
-
 
 # 应用定义
 
 INSTALLED_APPS = [
+    "blog",
+    "config",
+    "comment",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,11 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HareBlog.wsgi.application'
 
-
-
-
-
-
 # 密码验证
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -91,7 +85,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # 国际化
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -104,7 +97,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # 静态文件（CSS，JavaScript，图像）
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
