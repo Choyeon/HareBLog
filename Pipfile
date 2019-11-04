@@ -5,6 +5,7 @@ verify_ssl = true
 skip_lock = true
 
 [dev-packages]
+pylint = "<2.0.0"
 
 [packages]
 django-simpleui = "*"
