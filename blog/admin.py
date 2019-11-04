@@ -66,6 +66,30 @@ class PostAdmin(admin.ModelAdmin):
         'title', 'category', 'status',
         'created_time', 'operator', 'owner'
     ]
+    # fields = (
+    #     ('category', 'title'),
+    #     'desc',
+    #     'status',
+    #     'content',
+    #     'tag'
+    # )
+    fieldsets = (
+        ('基础设置', {'description': '基础配置描述',
+                  'fields': (('title', 'category'),
+                             'status',
+                             ),
+                  }),
+        ('内容', {
+            'fields': (
+                'desc',
+                'content',
+            ),
+        }),
+        ('额外信息', {
+            'classes': ('wide',),
+            'fields': ('tag',),
+        })
+    )
     list_display_links = []
 
     list_filter = [CategoryOwnerFilter, TagFilter]
@@ -77,13 +101,13 @@ class PostAdmin(admin.ModelAdmin):
     # 编辑
     save_on_top = True
 
-    fields = (
-        ('category', 'title'),
-        'desc',
-        'status',
-        'content',
-        'tag'
-    )
+    # fields = (
+    #     ('category', 'title'),
+    #     'desc',
+    #     'status',
+    #     'content',
+    #     'tag'
+    # )
 
     def operator(self, obj):
         return format_html(
@@ -100,3 +124,9 @@ class PostAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(PostAdmin, self).get_queryset(request)
         return qs.filter(owner=request.user)
+
+    class Media:
+        css = {
+            # 'all': ('https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css',)
+        }
+        js = ('https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.js',)
