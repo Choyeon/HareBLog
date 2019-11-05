@@ -2,11 +2,13 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
+from blog.adminforms import PostAdminForm
 from .models import Category, Tag, Post
+from HareBlog.custom_site import custom_site
 
 
 # 分类的admin
-@admin.register(Category)
+@admin.register(Category, site=custom_site)
 class CategoryAdmin(admin.ModelAdmin):
     # 列表显示
     list_display = ('name', 'status', 'is_nav', 'created_time')
@@ -19,7 +21,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 # 标签的admin
-@admin.register(Tag)
+@admin.register(Tag, site=custom_site)
 class TagAdmin(admin.ModelAdmin):
     # 列表显示、
     list_display = ('name', 'status', 'created_time')
@@ -60,8 +62,9 @@ class TagFilter(admin.SimpleListFilter):
         return queryset
 
 
-@admin.register(Post)
+@admin.register(Post, site=custom_site)
 class PostAdmin(admin.ModelAdmin):
+    form = PostAdminForm
     list_display = [
         'title', 'category', 'status',
         'created_time', 'operator', 'owner'
@@ -112,7 +115,7 @@ class PostAdmin(admin.ModelAdmin):
     def operator(self, obj):
         return format_html(
             '<a href="{}">编辑</a>',
-            reverse('admin:blog_post_change', args=(obj.id,))
+            reverse('cus_admin:blog_post_change', args=(obj.id,))
         )
 
     operator.short_description = "操作"
@@ -127,6 +130,6 @@ class PostAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            # 'all': ('https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css',)
+            # 'all': ('https://cdn.bootcss.com/twitter-bootstrap/4.0.0/css/bootstrap.css',)
         }
         js = ('https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.js',)
