@@ -1,36 +1,37 @@
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
+from django.contrib.admin.models import LogEntry
 
-from blog.adminforms import PostAdminForm
+from .adminforms import PostAdminForm
 from .models import Category, Tag, Post
 from HareBlog.custom_site import custom_site
+from HareBlog.base_admin import BaseOwnerAdmin
+
+
+class PostInline(admin.TabularInline):
+    # fields = {'title', 'desc'}
+    extra = 1
+    model = Post
 
 
 # 分类的admin
 @admin.register(Category, site=custom_site)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(BaseOwnerAdmin):
+    inlines = [PostInline, ]
     # 列表显示
     list_display = ('name', 'status', 'is_nav', 'created_time')
     # 领域
     fields = ('name', 'status', 'is_nav')
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(CategoryAdmin, self).save_model(request, obj, form, change)
-
 
 # 标签的admin
 @admin.register(Tag, site=custom_site)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(BaseOwnerAdmin):
     # 列表显示、
     list_display = ('name', 'status', 'created_time')
     # 领域
     fields = ('name', 'status')
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(TagAdmin, self).save_model(request, obj, form, change)
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):
@@ -63,19 +64,13 @@ class TagFilter(admin.SimpleListFilter):
 
 
 @admin.register(Post, site=custom_site)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(BaseOwnerAdmin):
     form = PostAdminForm
     list_display = [
         'title', 'category', 'status',
         'created_time', 'operator', 'owner'
     ]
-    # fields = (
-    #     ('category', 'title'),
-    #     'desc',
-    #     'status',
-    #     'content',
-    #     'tag'
-    # )
+
     fieldsets = (
         ('基础设置', {'description': '基础配置描述',
                   'fields': (('title', 'category'),
@@ -104,14 +99,6 @@ class PostAdmin(admin.ModelAdmin):
     # 编辑
     save_on_top = True
 
-    # fields = (
-    #     ('category', 'title'),
-    #     'desc',
-    #     'status',
-    #     'content',
-    #     'tag'
-    # )
-
     def operator(self, obj):
         return format_html(
             '<a href="{}">编辑</a>',
@@ -120,16 +107,13 @@ class PostAdmin(admin.ModelAdmin):
 
     operator.short_description = "操作"
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PostAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):
-        qs = super(PostAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
-
     class Media:
         css = {
             # 'all': ('https://cdn.bootcss.com/twitter-bootstrap/4.0.0/css/bootstrap.css',)
         }
         js = ('https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.js',)
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
