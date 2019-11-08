@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}首页{% endblock %}-HareBlog</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .post{
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container head">
+    <nav class="navbar navbar-expand-lg navbar-light"></nav>
+    {% for cate in navigation %}
+        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+    {% endfor %}
+</div>
+<hr>
+{% block main %}{% endblock %}
+
+<div>
+    底部：
+    {% for cate in categories %}
+        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+    {% endfor %}
+
+</div>
+
+<div>
+    侧边栏:
+    {% for sidebar in sidebars %}
+        <h4>{{ sidebar.title }}</h4>
+        {{ sidebar.content_html }}
+    {% endfor %}
+
+</div>
+</body>
+</html>

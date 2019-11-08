@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+{% block title %}
+    {% if tag %}
+        标签页: {{ tag.name }}
+    {% endif %}
+    {% if category %}
+        分类页: {{ category.name }}
+    {% else %}
+        首页
+    {% endif %}
+
+{% endblock %}
+{% block main %}
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                <div>
+                    <span>作者:{{ post.owner.username }}</span>
+                    <span>分类:{{ post.category.name }}</span>
+                </div>
+                <p>{{ post.desc }}</p>
+
+            </li>
+        {% endfor %}
+    </ul>
+    {% if page_obj %}
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+        {% endif %}
+        第{{ page_obj.number }}页 / 共{{ paginator.num_pages }}页
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

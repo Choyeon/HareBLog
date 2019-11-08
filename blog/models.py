@@ -39,6 +39,21 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_navs(cls):
+        category = cls.objects.filter(status=cls.STATUS_NORMAL)
+        navigation = []
+        categories = []
+        for cate in category:
+            if cate.is_nav:
+                navigation.append(cate)
+            else:
+                categories.append(cate)
+        return {
+            'navigation': navigation,
+            'categories': categories
+        }
+
 
 class Tag(models.Model):
     """
@@ -74,7 +89,6 @@ class Post(models.Model):
     STATUS_NORMAL = 1  # 正常状态
     STATUS_DELETE = 0  # 删除状态
     STATUS_DRAFT = 2  # 草稿状态
-
     # 状态项目
     STATUS_ITEMS = (
         (STATUS_NORMAL, '正常'),
@@ -98,12 +112,20 @@ class Post(models.Model):
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
+    # 文章访问量
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
+
     class Meta:
         verbose_name = verbose_name_plural = "文章"
         ordering = ['-id']
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def hot_posts(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
 
     @staticmethod
     def get_by_tag(tag_id):
@@ -134,3 +156,4 @@ class Post(models.Model):
     @classmethod
     def latest_posts(cls):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
+        return queryset
