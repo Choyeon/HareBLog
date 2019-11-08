@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>detail</title>
-</head>
-<body>
-{{ name }}
-</body>
-</html>
+{% if post %}
+    <h1>{{ post.title }}</h1>
+    <div>
+        <span>作者:{{ post.owner.username }}</span>
+        <span>分类:{{ post.category.name }}</span>
+    </div>
+    <hr>
+    <p>
+    {{ post.content }}
+    </p>
+{% endif %}

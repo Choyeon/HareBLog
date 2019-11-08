@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "blog",
     "config",
     "comment",
+    'HareBlog',
     # "simpleui",
     'django.contrib.admin',
     'django.contrib.auth',
