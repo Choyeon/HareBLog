@@ -1,3 +1,4 @@
+import mistune
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -101,6 +102,7 @@ class Post(models.Model):
     desc = models.CharField(max_length=1024, verbose_name="摘要")
     # 文章正文
     content = models.TextField(verbose_name='正文', help_text='正文必须为Markdown格式')
+    content_html = models.TextField(verbose_name='正文HTML部分', blank=True, editable=False)
     # 文章状态
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     # 文章的分类
@@ -157,3 +159,7 @@ class Post(models.Model):
     def latest_posts(cls):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
         return queryset
+
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content)
+        super().save(*args, **kwargs)

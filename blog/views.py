@@ -1,9 +1,12 @@
+from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, F
 from django.views.generic import ListView, DetailView
 
 from blog.models import Tag, Post, Category
+from comment.forms import CommentForm
+from comment.models import Comment
 from config.models import SideBar
 
 
@@ -42,6 +45,20 @@ class PostDetail(CommonViewMixin, DetailView):
     template_name = 'blog/detail.html'
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        Post.objects.filter(pk=self.object.id).update(pv=F('pv') + 1, uv=F('uv') + 1)
+        # print(connection.queries)
+        return response
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context.update({
+    #         'comment_form': CommentForm,
+    #         'comment_list': Comment.get_by_target(self.request.path)
+    #     })
+    #     return context
 
 
 class CategoryView(IndexView):

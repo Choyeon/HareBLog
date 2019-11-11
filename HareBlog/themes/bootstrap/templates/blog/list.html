@@ -25,7 +25,7 @@
                 {% endfor %}
                 </span>
             <p class="card-text">{{ post.desc }}<a href="{% url "post-detail" post.id %}">完整内容</a></p>
-        </div>\
+        </div>
     {% endfor %}
     <div class="container shadow-sm mt-5">
         {% if page_obj %}

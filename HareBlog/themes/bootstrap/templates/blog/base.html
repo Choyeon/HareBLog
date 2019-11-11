@@ -6,11 +6,20 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}首页{% endblock %}-HareBlog</title>
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    {% block extra_head %}
+        <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/googlecode.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
+
+        <style>
         .post {
             margin-bottom: 5px;
         }
+    {% endblock %}
+
     </style>
 </head>
 <body>
@@ -26,7 +35,8 @@
                 {% endfor %}
             </ul>
             <form action="/search/" class="form-inline my-2 my-lg-0" method="GET">
-                <input type="search" name="keyword" value="{{ keyword }}" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
+                <input type="search" name="keyword" value="{{ keyword }}" class="form-control mr-sm-2"
+                       placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">搜索</button>
             </form>
         </div>
@@ -60,18 +70,18 @@
 
 <footer class="footer">
     {% block footer %}
-    <div class="container">
-        <hr>
-        <nav class="nav category">
-            {% for cate in categories %}
-                <a href="{% url 'category-list' cate.id %}" class="nav-link">
-                {{ cate.name }}
-                </a>
-            {% endfor %}
-        </nav>
-    </div>
+        <div class="container">
+            <hr>
+            <nav class="nav category">
+                {% for cate in categories %}
+                    <a href="{% url 'category-list' cate.id %}" class="nav-link">
+                        {{ cate.name }}
+                    </a>
+                {% endfor %}
+            </nav>
+        </div>
         <div class="container power">
-        <span class="text-muted"> Power by HareBlog@Choyeon</span>
+            <span class="text-muted"> Power by HareBlog@Choyeon</span>
         </div>
     {% endblock %}
 </footer>

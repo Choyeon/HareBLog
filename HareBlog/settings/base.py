@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 安全警告：请将生产中使用的密钥保密！
 SECRET_KEY = '+-b6jxj9&hpseim9n!4ybot(()hd-7*2e7^8r&j(m!2e1&m!zx'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.71.71', '127.0.0.1', '0.0.0.0']
 
 # 应用定义
 
