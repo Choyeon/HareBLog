@@ -23,6 +23,14 @@ class IndexView(ListView, CommonViewMixin):
     paginate_by = 5
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
+    pk_url_kwarg = "post_id"
+
+
+class PostDetail(CommonViewMixin, DetailView):
+    queryset = Post.latest_posts()
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
+    pk_url_kwarg = 'post_id'
 
 
 class CategoryView(IndexView):
@@ -63,10 +71,3 @@ class TagView(IndexView):
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
         return queryset.filter(tag_id=tag_id)
-
-
-class PostDetail(CommonViewMixin, DetailView):
-    queryset = Post.latest_posts()
-    template_name = 'blog/detail.html'
-    context_object_name = 'post'
-    pk_url_kwarg = 'post_id'

@@ -8,36 +8,72 @@
     <title>{% block title %}首页{% endblock %}-HareBlog</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .post{
+        .post {
             margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 <div class="container head">
-    <nav class="navbar navbar-expand-lg navbar-light"></nav>
-    {% for cate in navigation %}
-        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
-    {% endfor %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/" class="navbar-brand">首页</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% for cate in navigation %}
+                    <li class="nav-item">
+                        <a href="{% url "category-list" cate.id %}" class="nav-link">{{ cate.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form action="GET" class="form-inline my-2 my-lg-0">
+                <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h1 class="display-4">HareBlog</h1>
+        <p class="lead">基于Django的博客系统</p>
+    </div>
 </div>
-<hr>
-{% block main %}{% endblock %}
 
-<div>
-    底部：
-    {% for cate in categories %}
-        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
-    {% endfor %}
 
+<div class="container main">
+    <div class="row">
+        <div class="col-9 post-list">
+            {% block main %}{% endblock %}
+        </div>
+        <div class="col-3">
+            {% block sidebar %}
+                {% for sidebar in sidebars %}
+                    <div class="card sidebar">
+                        <div class="card-body">
+                            <h4>{{ sidebar.title }}</h4>
+                            <p>{{ sidebar.content_html }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endblock %}
+        </div>
+    </div>
 </div>
 
-<div>
-    侧边栏:
-    {% for sidebar in sidebars %}
-        <h4>{{ sidebar.title }}</h4>
-        {{ sidebar.content_html }}
-    {% endfor %}
-
-</div>
+<footer class="footer">
+    {% block footer %}
+    <div class="container">
+        <hr>
+        <nav class="nav category">
+            {% for cate in categories %}
+                <a href="{% url 'category-list' cate.id %}" class="nav-link">
+                {{ cate.name }}
+                </a>
+            {% endfor %}
+        </nav>
+    </div>
+        <div class="container power">
+        <span class="text-muted"> Power by HareBlog@Choyeon</span>
+        </div>
+    {% endblock %}
+</footer>
 </body>
 </html>

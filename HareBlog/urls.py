@@ -22,9 +22,9 @@ from blog.views import (IndexView, CategoryView, TagView, PostDetail)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    re_path('category/(?P<category_id>\d+)/', CategoryView.as_view(), name='category-list'),
-    re_path('tag/(?P<tag_id>\d+)/', TagView.as_view(), name='tag-list'),
-    re_path('post/(?P<post_id>\d+).html', PostDetail.as_view(), name='post-detail'),
+    re_path('^category/(?P<category_id>\d+)/', CategoryView.as_view(), name='category-list'),
+    re_path('^tag/(?P<tag_id>\d+)/', TagView.as_view(), name='tag-list'),
+    re_path('^post/(?P<post_id>\d+).html', PostDetail.as_view(), name='post-detail'),
     path('links/', links, name='links'),
     path('super_admin/', admin.site.urls, name='super-admin'),
     path('admin/', custom_site.urls, name='admin'),
