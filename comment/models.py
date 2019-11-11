@@ -15,7 +15,7 @@ class Comment(models.Model):
         (STATUS_DELETE, '删除'),
     )
     # 评论目标链接到Post文章发布模型类
-    target = models.ForeignKey(Post, verbose_name="评论目标文章", on_delete=models.CASCADE)
+    target = models.CharField(max_length=100, verbose_name="评论目标")
     # 评论内容
     content = models.CharField(max_length=2000, verbose_name="内容")
     # 昵称

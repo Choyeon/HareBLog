@@ -16,16 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from config.views import links
+from config.views import LinkListView
 from .custom_site import custom_site
-from blog.views import (IndexView, CategoryView, TagView, PostDetail)
+from blog.views import (IndexView, CategoryView, TagView, PostDetail, SearchView, AuthorView)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     re_path('^category/(?P<category_id>\d+)/', CategoryView.as_view(), name='category-list'),
     re_path('^tag/(?P<tag_id>\d+)/', TagView.as_view(), name='tag-list'),
     re_path('^post/(?P<post_id>\d+).html', PostDetail.as_view(), name='post-detail'),
-    path('links/', links, name='links'),
+    path('links/', LinkListView.as_view(), name='links'),
     path('super_admin/', admin.site.urls, name='super-admin'),
     path('admin/', custom_site.urls, name='admin'),
+    path('search/', SearchView.as_view(), name="search"),
+    re_path('^author/(?P<owner_id>\d+)/', AuthorView.as_view(), name='author'),
 ]
