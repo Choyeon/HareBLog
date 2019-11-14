@@ -13,6 +13,7 @@ pipenv安装
 pip3 install pipenv
 # Mac OS 
 brew install pipenv
+```
 运行
 ```shell
 cd HareBlong
