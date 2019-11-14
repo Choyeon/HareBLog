@@ -114,3 +114,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea/
+将删除 HareBlog/locale/
+将删除 locale/
