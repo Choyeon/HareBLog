@@ -4,7 +4,9 @@
 一个多人博客系统
 
 #### 运行要求
-
+>python3.7.x
+>
+>django2.2.x
 #### 快速运行
 内置了Pipfile文件推荐使用pipenv
 pipenv安装
