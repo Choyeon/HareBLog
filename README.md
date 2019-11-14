@@ -25,8 +25,9 @@ python3 ./manage.py runserver
 ```
 
 #### 使用的开源软件
-Django2.2.6 按时交付完美主义者的Web框架
-mistune markdown输出
+>Django2.2.6 按时交付完美主义者的Web框架
+
+>mistune markdown输出
 
 #### LICENSE
 
