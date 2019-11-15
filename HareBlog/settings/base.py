@@ -26,6 +26,8 @@ ALLOWED_HOSTS = ['192.168.71.71', '127.0.0.1', '0.0.0.0']
 # 应用定义
 
 INSTALLED_APPS = [
+    "xadmin",
+    "crispy_forms",
     "blog",
     "config",
     "comment",
@@ -105,3 +107,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+XADMIN_TITLE = "HareBlog后台管理"
+XADMIN_FOOTER_TITLE = 'power by choyeon.cn'
+
+
