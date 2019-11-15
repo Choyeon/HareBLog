@@ -15,8 +15,10 @@ Including another URLconf
 """
 import xadmin
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.contrib.sitemaps import views as sitemap_views
+from django.conf.urls.static import static
+from django.conf import settings
 
 from comment.views import CommentView
 from config.views import LinkListView
@@ -26,16 +28,17 @@ from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
-    re_path('^category/(?P<category_id>\d+)/', CategoryView.as_view(), name='category-list'),
-    re_path('^tag/(?P<tag_id>\d+)/', TagView.as_view(), name='tag-list'),
-    re_path('^post/(?P<post_id>\d+).html', PostDetail.as_view(), name='post-detail'),
-    path('links/', LinkListView.as_view(), name='links'),
-    path('super_admin/', admin.site.urls, name='super-admin'),
-    path('admin/', xadmin.site.urls, name='xadmin'),
-    path('search/', SearchView.as_view(), name="search"),
-    re_path('^author/(?P<owner_id>\d+)/', AuthorView.as_view(), name='author'),
-    path('comment/', CommentView.as_view(), name='comment'),
-    re_path('^rss|feed/', LatestPostFeed(), name='rss'),
-    re_path('^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}})
-]
+                  path('', IndexView.as_view(), name='index'),
+                  re_path('^category/(?P<category_id>\d+)/', CategoryView.as_view(), name='category-list'),
+                  re_path('^tag/(?P<tag_id>\d+)/', TagView.as_view(), name='tag-list'),
+                  re_path('^post/(?P<post_id>\d+).html', PostDetail.as_view(), name='post-detail'),
+                  path('links/', LinkListView.as_view(), name='links'),
+                  path('super_admin/', admin.site.urls, name='super-admin'),
+                  path('admin/', xadmin.site.urls, name='xadmin'),
+                  path('search/', SearchView.as_view(), name="search"),
+                  re_path('^author/(?P<owner_id>\d+)/', AuthorView.as_view(), name='author'),
+                  path('comment/', CommentView.as_view(), name='comment'),
+                  re_path('^rss|feed/', LatestPostFeed(), name='rss'),
+                  re_path('^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
+                  path('ckeditor/', include('ckeditor_uploader.urls'))
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

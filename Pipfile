@@ -1,13 +1,14 @@
 [[source]]
 name = "pypi"
 url = "https://pypi.douban.com/simple"
-verify_ssl = true
 
 [dev-packages]
 
 [packages]
 django = "*"
 mistune = "*"
+django-ckeditor = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

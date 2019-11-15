@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+THEME = 'bootstrap'
 # 像这样在项目内部构建路径：os.path.join（BASE_DIR，...）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,6 +27,8 @@ ALLOWED_HOSTS = ['192.168.71.71', '127.0.0.1', '0.0.0.0']
 # 应用定义
 
 INSTALLED_APPS = [
+    'ckeditor',
+    'ckeditor_uploader',
     "xadmin",
     "crispy_forms",
     "blog",
@@ -53,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'HareBlog.urls'
-THEME = 'bootstrap'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -107,8 +110,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/tmp/static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'themes', THEME, 'static'),
+]
 
 XADMIN_TITLE = "HareBlog后台管理"
 XADMIN_FOOTER_TITLE = 'power by choyeon.cn'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 500,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet'
+    },
+}
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+DEFAULT_FILE_STORAGE = 'HareBlog.storage.WatermarkStorage'

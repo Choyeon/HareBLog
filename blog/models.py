@@ -114,6 +114,8 @@ class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    # 是否是MarkDown
+    is_md = models.BooleanField(default=False, verbose_name='Markdown语法')
 
     # 文章访问量
     pv = models.PositiveIntegerField(default=1)
@@ -162,7 +164,10 @@ class Post(models.Model):
         return queryset
 
     def save(self, *args, **kwargs):
-        self.content_html = mistune.markdown(self.content)
+        if self.is_md:
+            self.content_html = mistune.markdown(self.content)
+        else:
+            self.content_html = self.content
         super().save(*args, **kwargs)
 
     @cached_property
