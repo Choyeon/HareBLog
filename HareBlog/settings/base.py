@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     "config",
     "comment",
     'HareBlog',
-    # "simpleui",
+    "user",
     'corsheaders',
     'rest_framework',
     'django.contrib.admin',

@@ -20,7 +20,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from comment.views import CommentViewSet
-from blog.views import PostViewSet,CategoryViewSet,UserViewSet,NavViewSet,TagViewSet
+from blog.views import PostViewSet,CategoryViewSet,NavViewSet,TagViewSet
+from user.views import UserViewSet
+
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 from rest_framework.routers import DefaultRouter

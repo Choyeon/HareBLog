@@ -51,8 +51,5 @@ class TagSerializer(serializers.ModelSerializer):
                   'status', 'created_time')
 
 
-# TODO 迁移到User目录
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'category', 'article', 'password', 'tag')
+# TODO 迁移到User目录 √
+
