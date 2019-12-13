@@ -31,7 +31,7 @@ class Category(models.Model):
     # 是否是导航
     is_nav = models.BooleanField(default=False, verbose_name="是否为导航")
     # 作者的外键定义 指向'User'模型类 如果原作者被删除 则作者为空
-    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE, related_name='category')
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
@@ -73,7 +73,7 @@ class Tag(models.Model):
     # 标签状态
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     # 作者的外键定义 指向'User'模型类 如果原作者被删除 则作者为空
-    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE, related_name='tag')
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
@@ -107,11 +107,11 @@ class Post(models.Model):
     # 文章状态
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     # 文章的分类
-    category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.CASCADE, related_name="article")
     # 文章的标签 多对多
-    tag = models.ManyToManyField(Tag, verbose_name="标签")
+    tag = models.ManyToManyField(Tag, verbose_name="标签", related_name='article')
     # 文章的作者
-    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE, related_name='article')
     # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     # 是否是MarkDown

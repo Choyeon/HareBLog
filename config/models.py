@@ -108,3 +108,16 @@ class SideBar(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SiteConfig(models.Model):
+    """
+    配置相关
+    主题 标题  状态 后台管理
+    """
+    site_name = models.CharField(max_length=30, verbose_name="网站名字")
+    website_description = models.CharField(max_length=50, verbose_name="网站描述")
+    site_title = models.CharField(max_length=20, verbose_name="页面标题", help_text="页面标签的文本")
+    color_theme = models.CharField(max_length=8, verbose_name="主题色", help_text="网站主题色")
+    no_login_comments = models.BooleanField(default=True, verbose_name="未登录是否可以评论")
+    copyright_information = models.CharField(max_length=50, verbose_name="版权说明")

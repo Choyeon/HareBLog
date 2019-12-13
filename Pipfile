@@ -9,6 +9,12 @@ django = "*"
 mistune = "*"
 django-ckeditor = "*"
 pillow = "*"
+django-tinymce = "*"
+django-crispy-forms = "*"
+simpleui = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

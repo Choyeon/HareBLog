@@ -27,15 +27,14 @@ ALLOWED_HOSTS = ['192.168.71.71', '127.0.0.1', '0.0.0.0']
 # 应用定义
 
 INSTALLED_APPS = [
-    'ckeditor',
-    'ckeditor_uploader',
-    "xadmin",
     "crispy_forms",
     "blog",
     "config",
     "comment",
     'HareBlog',
     # "simpleui",
+    'corsheaders',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'blog.middleware.user_id.UserMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -115,20 +115,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'themes', THEME, 'static'),
 ]
 
-XADMIN_TITLE = "HareBlog后台管理"
-XADMIN_FOOTER_TITLE = 'power by choyeon.cn'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 500,
-        'width': 800,
-        'tabSpaces': 4,
-        'extraPlugins': 'codesnippet'
-    },
-}
+ADMIN_TITLE = "HareBlog后台管理"
+ADMIN_FOOTER_TITLE = 'power by choyeon.cn'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = 'article_images'
 DEFAULT_FILE_STORAGE = 'HareBlog.storage.WatermarkStorage'
+
+# 跨域头
+CORS_ORIGIN_ALLOW_ALL = True  # 允许所有的请求，或者设置CORS_ORIGIN_WHITELIST，二选一
+CORS_ALLOW_HEADERS = ('*',)  # 允许所有的请求头
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie，前端需要携带cookies访问后端时,需要设置withCredentials: true

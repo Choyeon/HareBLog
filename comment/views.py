@@ -1,29 +1,33 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-
+from rest_framework import viewsets
+from pprint import pprint
 from .forms import CommentForm
 
+# 评论集
+from .models import Comment
+from .serializers import CommentSerializer
 
-class CommentView(TemplateView):
-    http_method_names = ['post']
-    template_name = 'comment/result.html'
 
-    def post(self, request, *args, **kwargs):
-        comment_form = CommentForm(request.POST)
-        target = request.POST.get('target')
+class CommentViewSet(viewsets.ModelViewSet):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.filter(status=Comment.STATUS_NORMAL)
 
-        if comment_form.is_valid():
-            instance = comment_form.save(commit=False)
-            instance.target = target
-            instance.save()
-            succeed = True
-            return redirect(target)
+    def perform_create(self, serializer):
+        is_anonymous = self.request.data.get('is_anonymous')
+        print(self.request.data)
+        if is_anonymous:
+            user = User.objects.get(pk=3)
+            serializer.save(owner=user)
         else:
-            succeed = False
+            serializer.save(owner=self.request.user)
 
-        context = {
-            'succeed': succeed,
-            'form': comment_form,
-            'target': target,
-        }
-        return self.render_to_response(context)
+    def get_queryset(self):
+        post = self.request.query_params.get('post', None)
+        if post:
+            queryset = Comment.objects.filter(status=Comment.STATUS_NORMAL, post=post).order_by('-created_time')
+        else:
+            queryset = Comment.objects.filter(status=Comment.STATUS_NORMAL).order_by('-created_time')
+
+        return queryset
