@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import datetime
 import os
 
 THEME = 'bootstrap'
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     "user",
     'corsheaders',
     'rest_framework',
+    "rest_framework.authtoken",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +129,42 @@ DEFAULT_FILE_STORAGE = 'HareBlog.storage.WatermarkStorage'
 CORS_ORIGIN_ALLOW_ALL = True  # 允许所有的请求，或者设置CORS_ORIGIN_WHITELIST，二选一
 CORS_ALLOW_HEADERS = ('*',)  # 允许所有的请求头
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie，前端需要携带cookies访问后端时,需要设置withCredentials: true
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (  # 权限认证类
+        # 'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'user.views.jwt_response_payload_handler'
+}

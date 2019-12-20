@@ -1,6 +1,7 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.douban.com/simple"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+verify_ssl = true
 
 [dev-packages]
 
@@ -11,10 +12,11 @@ django-ckeditor = "*"
 pillow = "*"
 django-tinymce = "*"
 django-crispy-forms = "*"
-simpleui = "*"
-djangorestframework = "*"
+django-rest-framework = "*"
 django-cors-headers = "*"
 django-filter = "*"
+djangorestframework-jwt = "*"
+dal = "*"
 
 [requires]
 python_version = "3.7"

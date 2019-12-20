@@ -21,16 +21,16 @@ class Comment(models.Model):
     # 评论内容
     content = models.CharField(max_length=2000, verbose_name="内容")
     # 昵称
-    nickname = models.CharField(max_length=50, verbose_name="昵称")
+    nickname = models.CharField(max_length=50, verbose_name="昵称", default=None)
     # 网站URL
-    website = models.URLField(verbose_name="网站")
+    website = models.URLField(verbose_name="网站", default=None)
     # 邮箱地址
-    email = models.EmailField(verbose_name="邮箱")
+    email = models.EmailField(verbose_name="邮箱", default=None)
     # 评论状态
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     # 评论的用户
     owner = models.ForeignKey(User, verbose_name='发布者', on_delete=models.CASCADE, related_name='comment', default=None)
-    # 创建时间ß
+    # 创建时间
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     # 是否为匿名评论
     is_anonymous = models.BooleanField(default=True, verbose_name='匿名用户')
