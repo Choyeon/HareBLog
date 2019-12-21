@@ -11,7 +11,7 @@ class WatermarkStorage(FileSystemStorage):
         # 处理逻辑
         if 'image' in content.content_type:
             # 加水印
-            image = self.watermark_with_text(content, 'choyeon.cn', 'red')
+            image = self.watermark_with_text(content, 'the5fire.com', 'red')
             content = self.convert_image_to_file(image, name)
 
         return super().save(name, content, max_length=max_length)

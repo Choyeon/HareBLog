@@ -27,14 +27,18 @@ ALLOWED_HOSTS = ['192.168.71.71', '127.0.0.1', '0.0.0.0']
 
 # 应用定义
 
+
 INSTALLED_APPS = [
-    "crispy_forms",
+    'xadmin',
     "blog",
     "config",
     "comment",
     'HareBlog',
     "user",
+    'ckeditor',
+    'ckeditor_uploader',
     'corsheaders',
+    'crispy_forms',
     'rest_framework',
     "rest_framework.authtoken",
     'django.contrib.admin',
@@ -44,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 
 MIDDLEWARE = [
     'blog.middleware.user_id.UserMiddleware',
@@ -117,12 +122,22 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'themes', THEME, 'static'),
 ]
 
-ADMIN_TITLE = "HareBlog后台管理"
-ADMIN_FOOTER_TITLE = 'power by choyeon.cn'
+XADMIN_TITLE = "HareBlog后台管理"
+XADMIN_FOOTER_TITLE = 'power by choyeon.cn'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',
+    },
+}
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-CKEDITOR_UPLOAD_PATH = 'article_images'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"
+
 DEFAULT_FILE_STORAGE = 'HareBlog.storage.WatermarkStorage'
 
 # 跨域头

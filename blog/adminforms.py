@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from blog.models import Category, Tag, Post
+from blog.models import Post
 
 
 class PostAdminForm(forms.ModelForm):
@@ -12,7 +12,6 @@ class PostAdminForm(forms.ModelForm):
 
     class Meta:
         model = Post
-
         fields = (
             'category', 'tag', 'desc', 'title',
             'is_md', 'content', 'content_md', 'content_ck',
@@ -42,4 +41,4 @@ class PostAdminForm(forms.ModelForm):
         return super().clean()
 
     class Media:
-        js = ('js/post_editor.js',)
+        js = ('js/post_editor.js', )
