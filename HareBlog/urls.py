@@ -56,6 +56,6 @@ urlpatterns = [
                   # path('comment/', CommentView.as_view(), name='comment'),
                   # re_path('^rss|feed/', LatestPostFeed(), name='rss'),
                   path('sitemap.xml', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
-                  path('^ckeditor/', include('ckeditor_uploader.urls')),
+                  path('ckeditor/', include('ckeditor_uploader.urls')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
