@@ -4,7 +4,10 @@ ADMINS = MANAGERS = (
     ('Choyeon', 'admin@choyeon.cn'),  # 你的邮件地址
 )
 DEBUG = False
-
+STATIC_ROOT = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 # 数据库
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
@@ -13,8 +16,8 @@ DATABASES = {
         'NAME': 'HareBlog',
         'HOST': '127.0.0.1',
         'PORT': 3306,
-        'USER': 'admin',
-        'PASSWORD': '201314'
+        'USER': 'HareBlog',
+        'PASSWORD': '201314',
     }
 }
 LOGGING = {

@@ -96,4 +96,5 @@ class PostAdmin(BaseOwnerAdmin):
             '<a href="{}">编辑</a>',
             reverse('xadmin:blog_post_change', args=(obj.id,))
         )
+
     operator.short_description = '操作'
