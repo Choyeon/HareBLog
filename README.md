@@ -1,5 +1,5 @@
 # HareBlog
-
+[![GitHub stars](https://img.shields.io/github/stars/Choyeon/HareBlog.svg?style=flat-square)](https://github.com/Choyeon/HareBlog/stargazers)
 #### 介绍
 一个多人博客系统
 
