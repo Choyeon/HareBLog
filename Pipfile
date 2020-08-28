@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+url = "https://pypi.douban.com/simple/"
 verify_ssl = true
 
 [dev-packages]
@@ -10,6 +10,7 @@ mistune = "*"
 django-ckeditor = "*"
 pillow = "*"
 django-tinymce = "*"
+
 django-crispy-forms = "*"
 django-rest-framework = "*"
 django-cors-headers = "*"
